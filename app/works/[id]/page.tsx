@@ -25,11 +25,13 @@ export default function BookInfo({ params }: { params: { id: string } }) {
   console.log(params, dataBook);
 
   return (
-    <div>
-      PAGINA
-      <h1>{dataBook.title || "Título não encontrado"}</h1>
-      <div>{dataBook.description || "Descrição não encontrada"}</div>
-      <div>{dataBook.subjects || "Tags não encontradas"}</div>
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <h1 className="text-5xl mb-5 ">
+        {dataBook.title || "Título não encontrado"}
+      </h1>
+      <div className="container mb-5">
+        {dataBook.description || "Descrição não encontrada"}
+      </div>
       {dataBook.covers && (
         <Image
           src={`https://covers.openlibrary.org/b/id/${dataBook.covers[0]}-M.jpg`}
@@ -38,7 +40,12 @@ export default function BookInfo({ params }: { params: { id: string } }) {
           height={400}
         />
       )}
-      <Link href="/">Voltar</Link>
+      <div className="text-xs container mt-6 justify-center items-center">
+        {dataBook.subjects || "Tags não encontradas"}
+      </div>
+      <Link href="/">
+        <button className="btn">Back</button>
+      </Link>
     </div>
   );
 }

@@ -66,34 +66,57 @@ export default function SearchInput() {
   console.log(page);
 
   return (
-    <div>
-      <h1>Biblioteca</h1>
+    <div className="flex flex-col justify-center items-center min-h-screen">
+      <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block z-0">
+        <span className="relative text-6xl font-bold pb-3"> Biblioteca </span>
+      </span>
       <form className="flex items-center space-x-6">
         <input
+          className="bg-zinc-100 font-semibold mt-2 border-2 border-gray-300 p-2 rounded-md w-96 "
           type="text"
           value={searchTerm}
           onChange={handleSearch}
           placeholder="Search for a book"
         />
       </form>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <span className="mt-3 loading loading-ring loading-lg"></span>
+      )}
       {isError && <div>Algo deu errado.</div>}
       {data && (
-        <div>
+        <div className="container">
           {data.map((book: any) => (
-            <div key={book.key}>
-              <Link href={`${book.key}`} as={`${book.key}`}>
+            <div
+              className="p-2 border-solid border-2 border-zinc-500 rounded-lg text-center hover:bg-slate-200 m-4"
+              key={book.key}
+            >
+              <Link
+                className="text-base font-bold"
+                href={`${book.key}`}
+                as={`${book.key}`}
+              >
                 Título: {book.title}
-                <div>Autor: {book.author_name}</div>
-                <div>Ano de lançamento: {book.first_publish_year}</div>
+                <div className="font-extralight">Autor: {book.author_name}</div>
+                <div className="font-extralight">
+                  Ano de lançamento: {book.first_publish_year}
+                </div>
               </Link>
-              <hr />
             </div>
           ))}
           {data.length > 1 && (
             <>
-              <button onClick={() => handleClick("prev")}>PREV</button>
-              <button onClick={() => handleClick("next")}>NEXT</button>
+              <div className="flex items-center justify-around p-5">
+                <button
+                  className="btn ltr:ml-3 rtl:mr-3"
+                  onClick={() => handleClick("prev")}
+                >
+                  Prev
+                </button>
+
+                <button className="btn" onClick={() => handleClick("next")}>
+                  Next
+                </button>
+              </div>
             </>
           )}
         </div>
